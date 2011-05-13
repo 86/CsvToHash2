@@ -9,13 +9,11 @@ function CsvToHash2 {
         $enc = [Text.Encoding]::GetEncoding($encoding)
         $reader = New-Object IO.StreamReader($csv, $enc)
         $header = $reader.Readline() -split ","
-        Write-Debug "Line12: $header"
         for ($i = 0; $i -lt $header.length; $i++) {
             if ($header[$i] -match "`".*`"") {
                 $header[$i] = $header[$i] -replace "`"(.*)`"", "`$1"
             }
         }
-        Write-Debug "Line18: $header"
         $hash_all = @{}
         while(!$reader.EndOfStream){
             $hash_line = @{}
